@@ -1,4 +1,4 @@
-export class Vertice {
+export class Vertex {
   private readonly label: string
   // private readonly grau: number
 

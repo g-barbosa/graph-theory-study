@@ -1,8 +1,8 @@
 import { Map } from './Map'
-import { Vertice } from './Vertice'
+import { Vertex } from './Vertex'
 
 export class Graph {
-  private readonly vertices: Vertice[]
+  private readonly vertices: Vertex[]
   private readonly labelIndex: Map = { Key: '', Value: 0 }
   private readonly verticeMaxQnt: number = 10
   // private isQtdMaxVerticeDefinida: boolean = false
@@ -12,9 +12,9 @@ export class Graph {
     this.vertices = []
   }
 
-  addVertice (rotulo: string): void {
+  addVertex (rotulo: string): void {
     if (this.verticeCurrentQnt <= this.verticeMaxQnt - 1) {
-      var novoVertice: Vertice = new Vertice(rotulo)
+      var novoVertice: Vertex = new Vertex(rotulo)
       this.vertices.push(novoVertice)
       this.labelIndex.Key = rotulo
       this.labelIndex.Value = this.verticeMaxQnt
@@ -24,7 +24,7 @@ export class Graph {
     }
   }
 
-  getVeritices (): Vertice[] {
+  getVeritices (): Vertex[] {
     return this.vertices
   }
 }
