@@ -5,19 +5,19 @@ export class Graph {
   private readonly vertices: Vertex[]
   private readonly labelIndex: Object = { }
   private readonly verticeMaxQnt: number = 10
-  private adjacencyMatrix: AdjacencyMatrix
+  private adjacencyMatrix?: AdjacencyMatrix
   private verticeCurrentQnt: number = 0
 
   constructor () {
     this.vertices = []
-    this.adjacencyMatrix = new AdjacencyMatrix(this.vertices)
+    this.adjacencyMatrix = undefined
   }
 
   addVertex (label: string): void {
     if (this.verticeCurrentQnt <= this.verticeMaxQnt - 1) {
       var novoVertice: Vertex = new Vertex(label)
       this.vertices.push(novoVertice)
-      this.labelIndex[label] = this.verticeMaxQnt
+      this.labelIndex[label] = this.verticeCurrentQnt
       this.verticeCurrentQnt = this.verticeCurrentQnt + 1
     } else {
       throw new Error(`A quantidade de vértices permitida ${this.verticeMaxQnt} foi excedida.`)
@@ -37,16 +37,21 @@ export class Graph {
     this.createAdjacencyMatrix()
     var indexInitialVertex: number = this.labelIndex[labelFinalVertex]
     var indexFinalVertex: number = this.labelIndex[labelInitialVertex]
-    this.adjacencyMatrix.addEdge(indexInitialVertex, indexFinalVertex)
+    if (this.adjacencyMatrix !== undefined) {
+      this.adjacencyMatrix.addEdge(indexInitialVertex, indexFinalVertex)
+    }
   }
 
   getAdjacencies (vertex: string): Vertex[] {
     var vertexIndex: number = this.labelIndex[vertex]
-    return this.adjacencyMatrix.getAdjacency(vertexIndex)
+    if (this.adjacencyMatrix) {
+      return this.adjacencyMatrix.getAdjacency(vertexIndex)
+    }
+    return this.vertices
   }
 
   createAdjacencyMatrix (): void {
-    if (this.adjacencyMatrix == null) {
+    if (this.adjacencyMatrix === undefined) {
       this.adjacencyMatrix = new AdjacencyMatrix(this.vertices)
     }
   }

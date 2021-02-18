@@ -1,7 +1,7 @@
 import { Vertex } from './Vertex'
 
 export class AdjacencyMatrix {
-  private readonly matrix: number[][] = [[]]
+  private readonly matrix: number[][]
   private readonly vertices: Vertex[]
   private readonly vertexQtd: number
 
@@ -13,12 +13,17 @@ export class AdjacencyMatrix {
     }
   }
 
+  // private readonly newMatrix = ()
+
   constructor (vertices: Vertex[]) {
     this.vertices = vertices
     this.vertexQtd = vertices.length
-    var matrixInit = [[0]]
-    this.matrix = matrixInit
-    this.inicializarMatriz()
+    this.matrix = Array.from({ length: this.vertexQtd }, () => Array.from({ length: this.vertexQtd }, () => 0))
+    for (var i = 0; i < this.matrix.length; i++) {
+      for (var j = 0; j < this.matrix[i].length; j++) {
+        this.matrix[i][j] = 0
+      }
+    }
   }
 
   addEdge (initalVertexIndex: number, finalVertexIndex: number): void {
