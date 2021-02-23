@@ -34,9 +34,9 @@ export class AdjacencyMatrix {
       this.matrix[initalVertexIndex][initalVertexIndex] = 1
       initialVertex.AddDegree()
     } else {
-      this.matrix[initalVertexIndex][initalVertexIndex] = 1
+      this.matrix[initalVertexIndex][finalVertexIndex] = 1
       initialVertex.AddDegree()
-      this.matrix[initalVertexIndex][initalVertexIndex] = 1
+      this.matrix[finalVertexIndex][initalVertexIndex] = 1
       finalVertex.AddDegree()
     }
   }

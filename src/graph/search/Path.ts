@@ -1,4 +1,5 @@
 import hasKey from '../util/hasKey'
+import getByKey from '../util/getByKey'
 
 export class Path {
   private readonly path: Object[] = []
@@ -14,7 +15,7 @@ export class Path {
     let node: string = destiny
     while (node !== origin && hasKey(this.path, node)) {
       result.push(node)
-      node = this.path[node]
+      node = getByKey(this.path, node)
     }
     result.push(node)
     return result.reverse()
