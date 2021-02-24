@@ -1,4 +1,3 @@
-import getByKey from '../util/getByKey'
 import { AdjacencyMatrix } from './AdjacencyMatrix'
 import { Vertex } from './Vertex'
 
