@@ -44,3 +44,13 @@ path.forEach(step => console.log(step + ' '))
 var path: string[] = width.search(grafo, 'B', 'G')
 console.log('Caminho feito por uma busca em largura:')
 path.forEach(step => console.log(step + ' '))
+
+var tree: Graph = grafo.spanningTree()
+console.log()
+console.log('--- Árvore geradora ---')
+console.log('Vértices')
+tree.getVeritices().forEach(v => console.log('\t' + v.GetLabel()))
+console.log('Arestas')
+tree.getVeritices().forEach(v => {
+  tree.getAdjacencies(v.GetLabel()).forEach(adj => console.log('\t', v.GetLabel() + adj.GetLabel()))
+})

@@ -5,16 +5,6 @@ export class AdjacencyMatrix {
   private readonly vertices: Vertex[]
   private readonly vertexQtd: number
 
-  private readonly inicializarMatriz = (): void => {
-    for (var i = 0; i < this.matrix.length; i++) {
-      for (var j = 0; j < this.matrix[i].length; j++) {
-        this.matrix[i][j] = 0
-      }
-    }
-  }
-
-  // private readonly newMatrix = ()
-
   constructor (vertices: Vertex[]) {
     this.vertices = vertices
     this.vertexQtd = vertices.length
