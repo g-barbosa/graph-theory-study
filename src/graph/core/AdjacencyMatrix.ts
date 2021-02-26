@@ -20,17 +20,18 @@ export class AdjacencyMatrix {
     }
   }
 
-  addEdge (initalVertexIndex: number, finalVertexIndex: number): void {
+  addEdge (initalVertexIndex: number, finalVertexIndex: number, weight?: number): void {
+    weight = weight === undefined ? 1 : weight
     var initialVertex: Vertex = this.vertices[initalVertexIndex]
     var finalVertex: Vertex = this.vertices[finalVertexIndex]
 
-    if (initialVertex === finalVertex) {
-      this.matrix[initalVertexIndex][initalVertexIndex] = 1
+    if (initalVertexIndex === finalVertexIndex) {
+      this.matrix[initalVertexIndex][initalVertexIndex] = weight
       initialVertex.AddDegree()
     } else {
-      this.matrix[initalVertexIndex][finalVertexIndex] = 1
+      this.matrix[initalVertexIndex][finalVertexIndex] = weight
       initialVertex.AddDegree()
-      this.matrix[finalVertexIndex][initalVertexIndex] = 1
+      this.matrix[finalVertexIndex][initalVertexIndex] = weight
       finalVertex.AddDegree()
     }
   }
@@ -39,7 +40,7 @@ export class AdjacencyMatrix {
     var line: number = vertexIndex
     var adjacency: Vertex[] = []
     for (var j = 0; j < this.vertices.length; j++) {
-      if (this.matrix[line][j] === 1) {
+      if (this.matrix[line][j] !== 0) {
         var vertex: Vertex = this.vertices[j]
         adjacency.push(vertex)
       }

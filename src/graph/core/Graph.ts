@@ -13,6 +13,12 @@ export class Graph {
     this.adjacencyMatrix = undefined
   }
 
+  getWeight (initalVertexLabel: string, finalVertexLabel: string): any {
+    var initialVertexIndex: number = this.labelIndex[initalVertexLabel]
+    var finalVertexIndex: number = this.labelIndex[finalVertexLabel]
+    return this.adjacencyMatrix?.getWeigth(initialVertexIndex, finalVertexIndex)
+  }
+
   addVertex (label: string): void {
     if (this.verticeCurrentQnt <= this.verticeMaxQnt - 1) {
       var novoVertice: Vertex = new Vertex(label)
@@ -33,12 +39,12 @@ export class Graph {
     return this.vertices[index]
   }
 
-  connectVertex (labelInitialVertex: string, labelFinalVertex: string): void {
+  connectVertex (labelInitialVertex: string, labelFinalVertex: string, weight?: number): void {
     this.createAdjacencyMatrix()
     var indexInitialVertex: number = this.labelIndex[labelFinalVertex]
     var indexFinalVertex: number = this.labelIndex[labelInitialVertex]
     if (this.adjacencyMatrix !== undefined) {
-      this.adjacencyMatrix.addEdge(indexInitialVertex, indexFinalVertex)
+      this.adjacencyMatrix.addEdge(indexInitialVertex, indexFinalVertex, weight)
     }
   }
 
@@ -53,6 +59,13 @@ export class Graph {
   createAdjacencyMatrix (): void {
     if (this.adjacencyMatrix === undefined) {
       this.adjacencyMatrix = new AdjacencyMatrix(this.vertices)
+    } else {
+      var vertexInMatrixQtd: number = this.adjacencyMatrix.getVertexQtd()
+      if (this.vertices.length !== vertexInMatrixQtd) {
+        var adjacencyMatrixTemp: AdjacencyMatrix = new AdjacencyMatrix(this.vertices)
+        this.adjacencyMatrix.copyValuesTo(adjacencyMatrixTemp)
+        this.adjacencyMatrix = adjacencyMatrixTemp
+      }
     }
   }
 
@@ -91,9 +104,17 @@ export class Graph {
         var label: string = nextVertex.GetLabel()
         visitedVertices.push(label)
         stack.push(nextVertex)
-        tree.connectVertex(analisedVertex.GetLabel(), nextVertex.GetLabel())
+        tree.connectVertex(analisedVertex.GetLabel(), nextVertex.GetLabel(), undefined)
       }
     }
     return tree
+  }
+
+  getIndexLabels (): Object {
+    return this.labelIndex
+  }
+
+  getAdjacencyMatrix (): any {
+    return this.adjacencyMatrix
   }
 }
