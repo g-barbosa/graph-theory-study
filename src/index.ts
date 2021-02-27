@@ -1,8 +1,9 @@
+import { Digraph } from './graph/core/Digraph'
 import { Graph } from './graph/core/Graph'
 import { Vertex } from './graph/core/Vertex'
-import { DeepSearch } from './graph/search/DeepSearch'
-import { WidthSearch } from './graph/search/WidthSearch'
-
+// import { DeepSearch } from './graph/search/DeepSearch'
+// import { WidthSearch } from './graph/search/WidthSearch'
+/*
 var grafo = new Graph()
 
 grafo.addVertex('A')
@@ -53,4 +54,44 @@ tree.getVeritices().forEach(v => console.log('\t' + v.GetLabel()))
 console.log('Arestas')
 tree.getVeritices().forEach(v => {
   tree.getAdjacencies(v.GetLabel()).forEach(adj => console.log('\t', v.GetLabel() + adj.GetLabel()))
+})
+*/
+console.log('-----------------------------------------------')
+var digraph: Digraph = new Digraph()
+
+digraph.addVertex('RJ')
+digraph.addVertex('SP')
+digraph.addVertex('BH')
+digraph.addVertex('PT')
+digraph.addVertex('OS')
+digraph.addVertex('SV')
+digraph.addVertex('CR')
+digraph.addVertex('PA')
+
+digraph.connectVertex('RJ', 'SP', undefined)
+digraph.connectVertex('RJ', 'BH', undefined)
+digraph.connectVertex('RJ', 'PT', undefined)
+digraph.connectVertex('RJ', 'PA', undefined)
+digraph.connectVertex('SP', 'BH', undefined)
+digraph.connectVertex('SP', 'OS', undefined)
+digraph.connectVertex('SP', 'SV', undefined)
+digraph.connectVertex('SP', 'CR', undefined)
+digraph.connectVertex('SP', 'PA', undefined)
+digraph.connectVertex('SV', 'PA', undefined)
+digraph.connectVertex('CR', 'PA', undefined)
+
+var tree: Graph = digraph.spanningTreeByDeepRoot('PT')
+console.log('--- Arvore geradora via buasca por profundidade usando raiz ---')
+console.log()
+tree.getVeritices().forEach(v => {
+  console.log(`Vértice ${v.GetLabel()} conectado a:`)
+  var adjacencies: Vertex[] = tree.getAdjacencies(v.GetLabel())
+  if (adjacencies.length > 0) {
+    adjacencies.forEach(adj => {
+      console.log(adj.GetLabel())
+    })
+  } else {
+    console.log('-')
+  }
+  console.log()
 })

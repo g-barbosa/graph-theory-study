@@ -48,8 +48,8 @@ export class AdjacencyMatrix {
     return adjacency
   }
 
-  addTargetedEdge (initialIndexVertex: number, finalIndexVertex: number, weight: number): void {
-    weight = weight === null ? 1 : weight
+  addTargetedEdge (initialIndexVertex: number, finalIndexVertex: number, weight?: number): void {
+    weight = weight === undefined ? 1 : weight
     var initialVertex: Vertex = this.vertices[initialIndexVertex]
     if (initialIndexVertex === finalIndexVertex) {
       this.matrix[initialIndexVertex][initialIndexVertex] = weight
@@ -83,12 +83,14 @@ export class AdjacencyMatrix {
   }
 
   addAcestor (vertexIndex: number, ancestor: Vertex): void {
-    if (getByObjKey(this.ancestors, vertexIndex) === null) {
+    if (!hasObjKey(this.ancestors, vertexIndex)) {
       var ancestors: Vertex[] = []
       ancestors.push(ancestor)
       this.ancestors[vertexIndex] = ancestors
     } else {
-      getByObjKey(this.ancestors, vertexIndex).push(ancestor)
+      var newAncestors: Vertex[] = this.ancestors[vertexIndex]
+      newAncestors.push(ancestor)
+      this.ancestors[vertexIndex] = newAncestors
     }
   }
 
