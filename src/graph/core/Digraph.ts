@@ -1,4 +1,3 @@
-import getByObjKey from '../util/getObjectByKey'
 import { AdjacencyMatrix } from './AdjacencyMatrix'
 import { Graph } from './Graph'
 import { Vertex } from './Vertex'
@@ -24,7 +23,7 @@ export class Digraph extends Graph {
     var vertices: Vertex[] = super.getVeritices()
     var adjacencyMatrix: AdjacencyMatrix = super.getAdjacencyMatrix()
     var indexLabels: Object = super.getIndexLabels()
-    var rootIndex: number = getByObjKey(indexLabels, root)[root]
+    var rootIndex: number = indexLabels[root]
 
     vertices.forEach(v => {
       toVisit.push(v.GetLabel())
@@ -42,7 +41,7 @@ export class Digraph extends Graph {
       if (!adjacencyMatrix.hasAncestors(rootIndex)) {
         break
       }
-      var ancestor: string = 'null'
+      var ancestor: any = null
       for (var a of adjacencyMatrix.getAncestors(rootIndex)) {
         if (toVisit.includes(a.GetLabel())) {
           ancestor = a.GetLabel()
@@ -57,7 +56,7 @@ export class Digraph extends Graph {
       tree.addVertex(ancestor)
       tree.connectVertex(ancestor, root, undefined)
       root = ancestor
-      rootIndex = getByObjKey(indexLabels, root)[root]
+      rootIndex = indexLabels[root]
       this.visit(root, toVisit, tree)
     }
     return tree

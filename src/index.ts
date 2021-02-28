@@ -1,9 +1,9 @@
 import { Digraph } from './graph/core/Digraph'
 import { Graph } from './graph/core/Graph'
 import { Vertex } from './graph/core/Vertex'
-// import { DeepSearch } from './graph/search/DeepSearch'
-// import { WidthSearch } from './graph/search/WidthSearch'
-/*
+import { DeepSearch } from './graph/search/DeepSearch'
+import { WidthSearch } from './graph/search/WidthSearch'
+
 var grafo = new Graph()
 
 grafo.addVertex('A')
@@ -55,7 +55,7 @@ console.log('Arestas')
 tree.getVeritices().forEach(v => {
   tree.getAdjacencies(v.GetLabel()).forEach(adj => console.log('\t', v.GetLabel() + adj.GetLabel()))
 })
-*/
+
 console.log('-----------------------------------------------')
 var digraph: Digraph = new Digraph()
 
@@ -94,4 +94,56 @@ tree.getVeritices().forEach(v => {
     console.log('-')
   }
   console.log()
+})
+
+var grafoPonderado: Graph = new Graph()
+
+grafoPonderado.addVertex('A')
+grafoPonderado.addVertex('B')
+grafoPonderado.addVertex('C')
+grafoPonderado.addVertex('D')
+grafoPonderado.addVertex('E')
+
+grafoPonderado.connectVertex('A', 'B', 12)
+grafoPonderado.connectVertex('C', 'E', 10)
+grafoPonderado.connectVertex('B', 'D', 5)
+grafoPonderado.connectVertex('D', 'A', 2)
+grafoPonderado.connectVertex('B', 'E', 1)
+grafoPonderado.connectVertex('A', 'C', 7)
+
+console.log('--- grafo ponderado ---')
+var peso: number = grafoPonderado.getWeight('A', 'C')
+console.log(`Peso da aresta AC: ${peso}`)
+peso = grafoPonderado.getWeight('B', 'E')
+console.log(`Peso da aresta BE: ${peso}`)
+
+console.log('--- digrafo ponderado ---')
+
+var digrafoPonderado: Digraph = new Digraph()
+
+digrafoPonderado.addVertex('X')
+digrafoPonderado.addVertex('Y')
+digrafoPonderado.addVertex('Z')
+digrafoPonderado.addVertex('W')
+digrafoPonderado.addVertex('V')
+
+digrafoPonderado.connectVertex('X', 'V', 44)
+digrafoPonderado.connectVertex('Y', 'W', 37)
+digrafoPonderado.connectVertex('W', 'Z', 38)
+digrafoPonderado.connectVertex('X', 'V', 16)
+digrafoPonderado.connectVertex('V', 'X', 22)
+digrafoPonderado.connectVertex('V', 'Y', 57)
+
+console.log('Vertices')
+digrafoPonderado.getVeritices().forEach(v => {
+  console.log(v.GetLabel())
+})
+
+console.log()
+console.log('Arestas:')
+digrafoPonderado.getVeritices().forEach(v => {
+  digrafoPonderado.getAdjacencies(v.GetLabel()).forEach(adj => {
+    var peso: number = digrafoPonderado.getWeight(v.GetLabel(), adj.GetLabel())
+    console.log(`${v.GetLabel()} ${adj.GetLabel()}: ${peso}`)
+  })
 })

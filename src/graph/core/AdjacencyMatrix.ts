@@ -1,4 +1,3 @@
-import getByObjKey from '../util/getObjectByKey'
 import hasObjKey from '../util/hasObjKey'
 import { Vertex } from './Vertex'
 
@@ -38,14 +37,14 @@ export class AdjacencyMatrix {
 
   getAdjacency (vertexIndex: number): Vertex[] {
     var line: number = vertexIndex
-    var adjacency: Vertex[] = []
-    for (var j = 0; j < this.vertices.length; j++) {
+    var adjacencies: Vertex[] = []
+    for (var j = 0; j < this.vertexQtd; j++) {
       if (this.matrix[line][j] !== 0) {
         var vertex: Vertex = this.vertices[j]
-        adjacency.push(vertex)
+        adjacencies.push(vertex)
       }
     }
-    return adjacency
+    return adjacencies
   }
 
   addTargetedEdge (initialIndexVertex: number, finalIndexVertex: number, weight?: number): void {
@@ -95,10 +94,10 @@ export class AdjacencyMatrix {
   }
 
   getAncestors (vertexIndex: number): Vertex[] {
-    if (getByObjKey(this.ancestors, vertexIndex) === null) {
+    if (!hasObjKey(this.ancestors, vertexIndex)) {
       return []
     }
-    return getByObjKey(this.ancestors, vertexIndex)
+    return this.ancestors[vertexIndex]
   }
 
   hasAncestors (vertexIndex: number): Boolean {
