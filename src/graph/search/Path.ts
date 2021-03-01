@@ -1,5 +1,5 @@
-import hasKey from '../util/hasKey'
-import getByKey from '../util/getByKey'
+import hasKey from '../helpers/hasKey'
+import getByKey from '../helpers/getByKey'
 
 export class Path {
   private readonly path: Object[] = []

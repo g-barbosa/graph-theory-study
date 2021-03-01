@@ -1,9 +1,12 @@
-import { Digraph } from './graph/core/Digraph'
+// import { Digraph } from './graph/core/Digraph'
 import { Graph } from './graph/core/Graph'
-import { Vertex } from './graph/core/Vertex'
-import { DeepSearch } from './graph/search/DeepSearch'
-import { WidthSearch } from './graph/search/WidthSearch'
+// import { Vertex } from './graph/core/Vertex'
+// import { DeepSearch } from './graph/search/DeepSearch'
+// import { WidthSearch } from './graph/search/WidthSearch'
+import { DijkstraAlgorithm } from './graph/util/DijkstraAlgorithm'
+import { Info } from './graph/util/Info'
 
+/*
 var grafo = new Graph()
 
 grafo.addVertex('A')
@@ -146,4 +149,28 @@ digrafoPonderado.getVeritices().forEach(v => {
     var peso: number = digrafoPonderado.getWeight(v.GetLabel(), adj.GetLabel())
     console.log(`${v.GetLabel()} ${adj.GetLabel()}: ${peso}`)
   })
+})
+
+*/
+var graph = new Graph()
+graph.addVertex('A')
+graph.addVertex('B')
+graph.addVertex('C')
+graph.addVertex('D')
+graph.addVertex('E')
+
+graph.connectVertex('A', 'B', 12)
+graph.connectVertex('C', 'E', 10)
+graph.connectVertex('B', 'D', 5)
+graph.connectVertex('D', 'A', 2)
+graph.connectVertex('B', 'E', 1)
+graph.connectVertex('A', 'C', 7)
+
+var dijkstraAlgorithm = new DijkstraAlgorithm()
+var shortestPaths: Object = dijkstraAlgorithm.process('A', 'E', graph)
+var keys = Object.keys(shortestPaths)
+keys.forEach(key => {
+  var info: Info = shortestPaths[key]
+  var predecessor = info.predecessor === null ? '' : info.predecessor?.GetLabel()
+  console.log(`${key}: ${info.distance} - ${predecessor ?? ''}`)
 })

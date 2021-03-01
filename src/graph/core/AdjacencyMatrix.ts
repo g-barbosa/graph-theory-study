@@ -1,4 +1,4 @@
-import hasObjKey from '../util/hasObjKey'
+import hasObjKey from '../helpers/hasObjKey'
 import { Vertex } from './Vertex'
 
 export class AdjacencyMatrix {
