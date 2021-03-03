@@ -1,10 +1,13 @@
 // import { Digraph } from './graph/core/Digraph'
+import { Digraph } from './graph/core/Digraph'
 import { Graph } from './graph/core/Graph'
+// import { Graph } from './graph/core/Graph'
 // import { Vertex } from './graph/core/Vertex'
 // import { DeepSearch } from './graph/search/DeepSearch'
 // import { WidthSearch } from './graph/search/WidthSearch'
-import { DijkstraAlgorithm } from './graph/util/DijkstraAlgorithm'
-import { Info } from './graph/util/Info'
+// import { DijkstraAlgorithm } from './graph/util/DijkstraAlgorithm'
+// import { Info } from './graph/util/Info'
+import { PrimAlgorithm } from './graph/util/PrimAlgorithm'
 
 /*
 var grafo = new Graph()
@@ -151,7 +154,6 @@ digrafoPonderado.getVeritices().forEach(v => {
   })
 })
 
-*/
 var graph = new Graph()
 graph.addVertex('A')
 graph.addVertex('B')
@@ -173,4 +175,37 @@ keys.forEach(key => {
   var info: Info = shortestPaths[key]
   var predecessor = info.predecessor === null ? '' : info.predecessor?.GetLabel()
   console.log(`${key}: ${info.distance} - ${predecessor ?? ''}`)
+})
+*/
+var graph = new Graph()
+graph.addVertex('RJ')
+graph.addVertex('SP')
+graph.addVertex('BH')
+graph.addVertex('PT')
+graph.addVertex('OS')
+graph.addVertex('SV')
+graph.addVertex('CR')
+graph.addVertex('PA')
+
+graph.connectVertex('RJ', 'SP', 1)
+graph.connectVertex('RJ', 'BH', 2)
+graph.connectVertex('RJ', 'PT', 3)
+graph.connectVertex('RJ', 'PA', 4)
+graph.connectVertex('SP', 'BH', 5)
+graph.connectVertex('SP', 'OS', 6)
+graph.connectVertex('SP', 'SV', 7)
+graph.connectVertex('SP', 'CR', 8)
+graph.connectVertex('SP', 'PA', 9)
+graph.connectVertex('SV', 'PA', 10)
+graph.connectVertex('CR', 'PA', 11)
+
+var root: string = 'RJ'
+var prim = new PrimAlgorithm()
+var mst: Digraph = prim.process(root, graph)
+mst.getVeritices().forEach(v => {
+  console.log(`O vertice ${v.GetLabel()} é adjacente aos vertices:`)
+  mst.getAdjacencies(v.GetLabel()).forEach(adj => {
+    var peso: number = mst.getWeight(v.GetLabel(), adj.GetLabel())
+    console.log(`${adj.GetLabel()} com peso ${peso}`)
+  })
 })
